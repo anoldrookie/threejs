@@ -1,13 +1,14 @@
-import * as THREE from '../../node_modules/three/build/three.module.js'
-import { OrbitControls } from '../../node_modules/three/examples/jsm/controls/OrbitControls.js'
-import { FBXLoader } from '../../node_modules/three/examples/jsm/loaders/FBXLoader.js'
-import { GLTFLoader } from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
-import * as dat from '../../node_modules/dat.gui/build/dat.gui.module.js'
-import { CSS3DObject, CSS3DSprite, CSS3DRenderer } from '../../node_modules/three/examples/jsm/renderers/CSS3DRenderer.js'
+// import * as THREE from '../../node_modules/three/build/three.module.js'
+// import { OrbitControls } from '../../node_modules/three/examples/jsm/controls/OrbitControls.js'
+// import { FBXLoader } from '../../node_modules/three/examples/jsm/loaders/FBXLoader.js'
+// import { GLTFLoader } from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
+// import * as dat from '../../node_modules/dat.gui/build/dat.gui.module.js'
+// import { CSS3DObject, CSS3DSprite, CSS3DRenderer } from '../../node_modules/three/examples/jsm/renderers/CSS3DRenderer.js'
 // import gsap from '../gsap/dist/gsap.js'
 // import {TweenMax} from '../../node_modules/gsap/all'
 // console.log(TweenMax);
 // import gsap from 'gsap'
+// const loader = new THREE.FBXLoader
 const manager = new THREE.LoadingManager()
 manager.onProgress = function (url, itemsLoaded, itemsTotal) {
 
@@ -29,8 +30,8 @@ const groupBOX = new THREE.Group()
 const groupSchool = new THREE.Group()
 const groupUH1B = new THREE.Group()
 const groupmig = new THREE.Group()
-const loader = new FBXLoader()
-const GLTFloader = new GLTFLoader()
+let loader = new THREE.FBXLoader()
+const GLTFloader = new THREE.GLTFLoader()
 const groupx = new THREE.Group()
 const grouptext = new THREE.Group()
 
@@ -41,7 +42,7 @@ let grundTexture = 'src/image/snow.jpg'
 let BoxToptexture = ''
 let BoxMidtexture = ''
 let BoxButtontexture = ''
-let top = null
+let Top = null
 let mid = null
 let button = null
 let lastClickedObject = null
@@ -196,7 +197,8 @@ LoadFBXmodel('src/model/gwdl.FBX', groupGwdl, configgwdl)
 groupGGP.add(videoPlane)
 //道路(直)模型
 for (let i = 0; i < 3; i++) {
-    loader.load('src/model/road.FBX', function (fbx) {
+    loader.load('src/model/road.FBX', 
+    function (fbx) {
         // model.add(fbx)
         group3.add(fbx)
         fbx.scale.set(0.05, 0.05, 0.05)
@@ -362,7 +364,7 @@ rander.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(rander.domElement)
 // document.getElementById('Ptext').appendChild(rander.domElement);
 // 创建轨道控制器
-const controls = new OrbitControls(camera, rander.domElement)
+const controls = new THREE.OrbitControls(camera, rander.domElement)
 // controls.enableDamping = true
 
 
@@ -674,8 +676,8 @@ function updateTexture() {
         material.map = texture;
         material.needsUpdate = true;
     }
-    if (BoxToptexture, top) {
-        console.log('tttttttttttttttttttttttttttttt', top);
+    if (BoxToptexture, Top) {
+        console.log('tttttttttttttttttttttttttttttt', Top);
         const textureTop = textureLoader.load(BoxToptexture);
         groupBOX.children[0].children[1].material.map = textureTop
         groupBOX.children[0].children[1].material.needsUpdate = true;
@@ -702,7 +704,7 @@ let a = false
 // 显示文字
 
 function BoxTopButton(){
-    top = true
+    Top = true
     mid = false
     button = false
     if (!a) {
@@ -717,7 +719,7 @@ function BoxTopButton(){
 window.BoxTopButton = BoxTopButton
 function BoxMidButton(){
     mid = true
-    top = false
+    Top = false
     button = false
     if (!a) {
         boxTexture.style.display = 'block'
@@ -731,7 +733,7 @@ function BoxMidButton(){
 window.BoxMidButton = BoxMidButton
 function BoxBottonButton(){
     button = true
-    top = false
+    Top = false
     mid = false
     if (!a) {
         boxTexture.style.display = 'block'

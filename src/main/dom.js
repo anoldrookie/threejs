@@ -1,5 +1,5 @@
 // import {BoxBottonButton} from '../main/main.js'
-const texture = document.getElementById('texture')
+// const texture = document.getElementById('texture')
 
 
 let flag_bg_texture_box = true
